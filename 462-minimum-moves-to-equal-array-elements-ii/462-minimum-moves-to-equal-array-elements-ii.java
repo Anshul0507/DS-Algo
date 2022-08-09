@@ -8,7 +8,7 @@ class Solution {
     private int quickSelect(int[] nums, int left, int right, int k) {
         if (left == right) return nums[left];
 
-        int pIndex = new Random().nextInt(right - left + 1) + left;
+        int pIndex = (left+right)/2;
         pIndex = partition(nums, left, right, pIndex);
 
         if (pIndex == k) return nums[k];
