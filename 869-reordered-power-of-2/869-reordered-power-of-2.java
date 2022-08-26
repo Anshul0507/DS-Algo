@@ -1,20 +1,13 @@
 class Solution {
-    HashSet<String> h = new HashSet<>();
-    Solution(){
-        int c = 1;
-        for(int i=1;i<=31;i++){
-            String s = String.valueOf(c);
-            char[] ar = s.toCharArray();
-            Arrays.sort(ar);
-            h.add(String.valueOf(ar));
-            c*=2;
-        }
-    }
-    public boolean reorderedPowerOf2(int n) {
-        char[] ar = String.valueOf(n).toCharArray();
-        Arrays.sort(ar);
-        if(h.contains(String.valueOf(ar)))
-            return true;
+    public boolean reorderedPowerOf2(int N) {
+        long c = counter(N);
+        for (int i = 0; i < 32; i++)
+            if (counter(1 << i) == c) return true;
         return false;
+    }
+    public long counter(int N) {
+        long res = 0;
+        for (; N > 0; N /= 10) res += (int)Math.pow(10, N % 10);
+        return res;
     }
 }
