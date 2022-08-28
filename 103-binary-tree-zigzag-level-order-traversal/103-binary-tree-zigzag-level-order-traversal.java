@@ -15,7 +15,7 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> res = new LinkedList<>();
+        List<List<Integer>> res = new ArrayList<>();
         if(root==null)
             return res;
         Queue<TreeNode> q = new LinkedList<>();
@@ -23,7 +23,7 @@ class Solution {
         boolean reverse = false;
         while(!q.isEmpty()){
             int size = q.size();
-            List<Integer> currList = new LinkedList<>();
+            List<Integer> currList = new ArrayList<>();
             for(int i=0;i<size;i++){
                 TreeNode node = q.poll();
                 if(reverse)
