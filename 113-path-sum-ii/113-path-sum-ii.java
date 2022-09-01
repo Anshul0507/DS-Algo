@@ -16,30 +16,21 @@
 class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> res = new ArrayList<>();
-        if(root==null)
-            return res;
         dfs(root,targetSum,new ArrayList<>(),res);
         return res;
     }
     
     private void dfs(TreeNode root, int targetSum, List<Integer> curr, List<List<Integer>> res){
-        if(root==null && targetSum!=0)
+        if(root==null)
             return;
-        if(root==null){
-            res.add(new ArrayList<>(curr));
-            return;
-        }
         curr.add(root.val);
-        if(root.left!=null){
-            List<Integer> left = new ArrayList<>(curr);
-            dfs(root.left,targetSum-root.val,left,res);
+        if(root.left == null && root.right == null && targetSum == root.val){
+            res.add(new ArrayList<Integer>(curr));
         }
-        if(root.right!=null){
-            List<Integer> right = new ArrayList<>(curr);
-            dfs(root.right,targetSum-root.val,right,res);
+        else{
+            dfs(root.left,targetSum-root.val,curr,res);
+            dfs(root.right,targetSum-root.val,curr,res);
         }
-        if(root.left==null && root.right==null){
-            dfs(null,targetSum-root.val,curr,res);
-        }
+        curr.remove(curr.size()-1);
     }
 }
