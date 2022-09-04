@@ -18,10 +18,10 @@ class Solution {
         Deque<TreeNode> dq = new LinkedList<>();
         for(int i=0;i<nums.length;i++){
             TreeNode curr = new TreeNode(nums[i]);
-            while(!dq.isEmpty() && dq.peekFirst().val<nums[i])
+            while(!dq.isEmpty() && dq.peek().val<nums[i])
                 curr.left = dq.pop();
             if(!dq.isEmpty())
-                dq.peekFirst().right=curr;
+                dq.peek().right=curr;
             dq.push(curr);
         }
         return dq.removeLast();
