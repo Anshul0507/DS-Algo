@@ -1,6 +1,7 @@
 class Solution {
     public int[] findOriginalArray(int[] changed) {
-        if(changed.length%2!=0) return new int[0];
+        if(changed.length<=1 || changed.length%2!=0)
+            return new int[0];
         int mid = changed.length/2;
         int[] res = new int[mid];
         int[] freq = new int[100001];
@@ -13,9 +14,8 @@ class Solution {
                 freq[no*2]--;
                 res[idx++] = no;
             }
-        }
-        for(int i=0; i<freq.length; i++){
-            if(freq[i]!=0) return new int[0];
+            if(freq[no]!=0)
+                return new int[0];
         }
         return res;
     }
