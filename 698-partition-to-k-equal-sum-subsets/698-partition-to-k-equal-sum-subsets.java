@@ -18,9 +18,11 @@ class Solution {
         
         for(int i=0;i<bucket.length;i++){
             if(bucket[i]+arr[index]<=target){
+                System.out.println("Filling " + arr[index] + " in bucket " + i);
                 bucket[i]+=arr[index];
                 if(helper(arr,bucket,target,n,index-1))return true;
                 bucket[i]-=arr[index];
+                System.out.println("Removing " + arr[index] + " from bucket " + i);
             }
             //if we have not filled the bucket, then no need to iterate for rest
             if(bucket[i]==0)
