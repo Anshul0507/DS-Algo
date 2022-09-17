@@ -10,7 +10,8 @@ class Solution {
         Arrays.sort(arr);
         return helper(arr,bucket,sum/k,n,n-1);
     }
-    boolean helper(int[]arr,int[]bucket,int target,int n,int index){
+    
+    private boolean helper(int[]arr,int[]bucket,int target,int n,int index){
         if(index==-1){
             return true;
         }
@@ -21,7 +22,7 @@ class Solution {
                 if(helper(arr,bucket,target,n,index-1))return true;
                 bucket[i]-=arr[index];
             }
-            //if we have filled the bucket, then no need to iterate for rest
+            //if we have not filled the bucket, then no need to iterate for rest
             if(bucket[i]==0)
                 break;
         }
