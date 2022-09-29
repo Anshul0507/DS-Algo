@@ -1,38 +1,30 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int n=nums.length, count=0, high=0;
+        int n=nums.length;
         int[] res = new int[n];
         Arrays.fill(res,10001);
         res[0]=nums[0];
+        int len = 1;
         for(int i=1;i<n;i++){
-            int ceilIndex = getCeilIndex(0,high,res,nums[i]);
-            if(ceilIndex>high)
-                high = ceilIndex;
-            res[ceilIndex] = nums[i];
+            if(nums[i]<res[0])
+                res[0]=nums[i];
+            else if(nums[i]>res[len-1])
+                res[len++]=nums[i];
+            else
+                res[getCeilIndex(-1,len-1,res,nums[i])] = nums[i];
         }
-        for(int i = 0;i<n;i++){
-            if(res[i]==10001)
-                break;
-            count++;
-        }
-        return count;
+        return len;
     }
     
-    private int getCeilIndex(int low, int high, int[] arr, int t){
-        if(t<=arr[low])
-            return low;
-        if(t>arr[high])
-            return high+1;
-        int mid = (low+high)/2;
-        if(t==arr[mid])
-            return mid;
-        if(t>arr[mid]){
-            if(mid+1<=high && t<=arr[mid+1])
-                return mid+1;
-            return getCeilIndex(mid+1,high,arr,t);
+    private int getCeilIndex(int l, int r, int[] arr, int t){
+        while (r - l > 1) {
+            int m = l + (r - l) / 2;
+            if (arr[m] >= t)
+                r = m;
+            else
+                l = m;
         }
-        if(mid-1>=low && t>arr[mid-1])
-            return mid;
-        return getCeilIndex(low,mid-1,arr,t);
+ 
+        return r;
     }
 }
