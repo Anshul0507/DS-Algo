@@ -1,21 +1,14 @@
 class Solution {
-    public int countSquares(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length, s = Math.min(m,n);
-        int count = 0;
-        int[][][] dp = new int[m][n][s];
-        for(int i=0;i<m;i++)
-            for(int j=0;j<n;j++){
-                int curr = Math.min(i,j);
-                for(int k=0;k<=curr;k++){
-                    if(matrix[i][j]==0)
-                        dp[i][j][k]=0;
-                    else if(k==0)
-                        dp[i][j][k]=1;
-                    else if(k<=i && k<=j && dp[i-1][j-1][k-1]>0 && dp[i-1][j][k-1]>0 && dp[i][j-1][k-1]>0)
-                        dp[i][j][k]=1;
-                    count+=dp[i][j][k];
+    public int countSquares(int[][] A) {
+        int res = 0;
+        for (int i = 0; i < A.length; ++i) {
+            for (int j = 0; j < A[0].length; ++j) {
+                if (A[i][j] > 0 && i > 0 && j > 0) {
+                    A[i][j] = Math.min(A[i - 1][j - 1], Math.min(A[i - 1][j], A[i][j - 1])) + 1;
                 }
+                res += A[i][j];
             }
-        return count;
+        }
+        return res;
     }
 }
