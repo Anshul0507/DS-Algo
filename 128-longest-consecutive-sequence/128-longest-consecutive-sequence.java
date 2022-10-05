@@ -1,23 +1,35 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
-        int res = 0;
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for (int n : nums) {
-            if (!map.containsKey(n)) {
-                int left = (map.containsKey(n-1)) ? map.get(n - 1) : 0;
-                int right = (map.containsKey(n+1))? map.get(n + 1) : 0;
-                // sum: length of the sequence n is in
-                int sum = left + right + 1;
-                map.put(n, sum);
-                // keep track of the max length 
-                res = Math.max(res, sum);
-                // extend the length to the boundary(s)
-                // of the sequence
-                // will do nothing if n has no neighbors
-                map.put(n - left, sum);
-                map.put(n + right, sum);
+        int maxi = 1, n = nums.length;
+        if(n==0)
+            return 0;
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        for(int i=0;i<n;i++){
+            int v = nums[i];
+            if(hmap.containsKey(v))
+                continue;
+            if(hmap.containsKey(v-1) && hmap.containsKey(v+1)){
+                int l = hmap.get(v-1), r = hmap.get(v+1);
+                hmap.put(v,l+r+1);
+                hmap.put(v-l,l+r+1);
+                hmap.put(v+r,l+r+1);
+                maxi = Math.max(maxi, l + r + 1);
             }
+            else if (hmap.containsKey(v-1)){
+                int l = hmap.get(v-1);
+                hmap.put(v,l+1);
+                hmap.put(v-l,l+1);
+                maxi = Math.max(maxi, l + 1);
+            }
+            else if(hmap.containsKey(v+1)){
+                int r = hmap.get(v+1);
+                hmap.put(v,r+1);
+                hmap.put(v+r,r+1);
+                maxi = Math.max(maxi,r + 1);
+            }
+            else
+                hmap.put(v,1);
         }
-        return res;
+        return maxi;
     }
 }
