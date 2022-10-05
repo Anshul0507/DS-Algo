@@ -28,12 +28,10 @@ class Solution {
         if(root==null)
             return;
         if(depth==2){
-            TreeNode left = root.left;
-            TreeNode right = root.right;
             TreeNode leftNew = new TreeNode(val);
             TreeNode rightNew = new TreeNode(val);
-            leftNew.left = left;
-            rightNew.right = right;
+            leftNew.left = root.left;
+            rightNew.right = root.right;
             root.left = leftNew;
             root.right = rightNew;
             return;
