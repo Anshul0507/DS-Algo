@@ -1,29 +1,64 @@
 class MyCalendarThree {
-    private Map<Integer, Integer> vals;
-    private Map<Integer, Integer> lazy;
-
+SegmentTree tree;
     public MyCalendarThree() {
-        vals = new HashMap<>();
-        lazy = new HashMap<>();
+        tree = new SegmentTree(0, (int) 1e9);
     }
-
-    public void update(int start, int end, int left, int right, int idx) {
-        if (start > right || end < left)
-            return;
-        if (start <= left && right <= end) {
-            vals.put(idx, vals.getOrDefault(idx, 0) + 1);
-            lazy.put(idx, lazy.getOrDefault(idx, 0) + 1);
-        } else {
-            int mid = (left + right) / 2;
-            update(start, end, left, mid, idx * 2);
-            update(start, end, mid + 1, right, idx * 2 + 1);
-            vals.put(idx, lazy.getOrDefault(idx, 0)
-                    + Math.max(vals.getOrDefault(idx * 2, 0), vals.getOrDefault(idx * 2 + 1, 0)));
-        }
-    }
-
+    
     public int book(int start, int end) {
-        update(start, end - 1, 0, 1000000000, 1);
-        return vals.getOrDefault(1, 0);
+        return tree.book(start, end, 0);
     }
+    
+    private static final class SegmentTree{
+        private int start;
+        private int end;
+        private int middle;
+        
+        private int bookings;
+        private int lazyLeft;
+        private int lazyRight;
+        
+        SegmentTree leftChild;
+        SegmentTree rightChild;
+        SegmentTree(int start, int end){
+            this.start = start;
+            this.end = end;
+            this.middle = start + (end - start) / 2;
+        }
+        
+        public int book(int bookStart, int bookEnd, int lazy){
+            if(lazy != 0){
+                this.bookings += lazy;
+                this.lazyLeft += lazy;
+                this.lazyRight += lazy;
+            }
+            
+            if(bookStart <= this.start && this.end <= bookEnd){
+                this.bookings += 1;
+                this.lazyLeft += 1;
+                this.lazyRight += 1;
+                return this.bookings;
+            }
+            int maxBooking = Integer.MIN_VALUE;
+            if(bookStart < this.middle){
+                if(this.leftChild == null){
+                    this.leftChild = new SegmentTree(this.start, this.middle);
+                }
+                int lazyChild = this.lazyLeft;
+                this.lazyLeft = 0;
+                maxBooking = this.leftChild.book(bookStart, bookEnd, lazyChild);
+            }
+            
+            
+            if(bookEnd > this.middle){
+                if(this.rightChild == null){
+                    this.rightChild = new SegmentTree(this.middle, this.end);
+                }
+                int lazyChild = this.lazyRight;
+                this.lazyRight = 0;
+                maxBooking = Math.max(maxBooking, this.rightChild.book(bookStart, bookEnd, lazyChild));
+            }
+            this.bookings = Math.max(this.bookings, maxBooking);
+            return bookings;
+        }
+    } 
 }
