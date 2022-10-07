@@ -10,6 +10,8 @@ class Point{
 }
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
+        if(points.length==k)
+            return points;
         PriorityQueue<Point> pq = new PriorityQueue<Point>((p1,p2)-> p2.d-p1.d);
         for(int i=0;i<k;i++){
             pq.add(new Point(points[i][0],points[i][1]));
