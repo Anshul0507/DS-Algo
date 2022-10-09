@@ -3,14 +3,14 @@ class Solution {
         if(s.length()<=1)
             return s.length();
         int n = s.length(),l=0,r=1,maxi=1;
-        HashSet<Character> h = new HashSet<>();
-        h.add(s.charAt(0));
+        int[] map = new int[224];
+        Arrays.fill(map,-1);
+        map[s.charAt(0)-' ']=0;
         while(r<n){
-            while(h.contains(s.charAt(r)) && l<r){
-                h.remove(s.charAt(l++));
-            }
+            if(map[s.charAt(r)-' ']!=-1 && l<=map[s.charAt(r)-' '])
+                l = map[s.charAt(r)-' ']+1;
             maxi=Math.max(maxi,r-l+1);
-            h.add(s.charAt(r++));
+            map[s.charAt(r)-' ']=r++;
         }
         return maxi;
     }
