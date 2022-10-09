@@ -9,9 +9,8 @@ class Solution {
             while(h.contains(s.charAt(r)) && l<r){
                 h.remove(s.charAt(l++));
             }
-            h.add(s.charAt(r));
             maxi=Math.max(maxi,r-l+1);
-            r++;
+            h.add(s.charAt(r++));
         }
         return maxi;
     }
