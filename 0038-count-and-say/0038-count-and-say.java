@@ -10,19 +10,21 @@ class Solution {
     }
     
     public String countAndSay(String s){
-        String res = "";
+        StringBuilder builder = new StringBuilder();
         char curr = s.charAt(0);
         int currCount=1;
         for(int i=1;i<s.length();i++){
             if(s.charAt(i)!=curr){
-                res = res + String.valueOf(currCount) + curr;
+                builder.append(currCount)
+                    .append(curr);
                 curr = s.charAt(i);
                 currCount=1;
             }
             else
                 currCount++;
         }
-        res = res + String.valueOf(currCount) + curr;
-        return res;
+        builder.append(currCount)
+                    .append(curr);
+        return builder.toString();
     }
 }
