@@ -33,10 +33,10 @@ class Solution {
                 
                 // the current builder will have the substring between [] 1 time
                 // so we have to append the substring between left and right repititions -1 times
-                for(int k = 1; k< repitition; k++){
+                while(repitition > 1){
+                    repitition--;
                     sb.append(sb.substring(left,right));
-                }
-                    
+                }   
             }
         }
         return sb.toString();
