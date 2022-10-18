@@ -14,16 +14,25 @@ class Solution {
                 st.push(digit);
             }
             
-            // 
+            // if character is [ or alphabet
             else if(s.charAt(i)!=']')
                 sb.append(s.charAt(i));
+            
+            // when we encounter ]
             else{
-                
+                // pop the number repitions of the current substring inside []
                 int repitition = st.pop(), left = sb.length()-1;
+                
+                //move left to the index at which we get [
                 while(sb.charAt(left)!='[')
                     left--;
+                
+                // delete [ from string builder
                 sb.deleteCharAt(left);
                 int right = sb.length();
+                
+                // the current builder will have the substring between [] 1 time
+                // so we have to append the substring between left and right repititions -1 times
                 for(int k = 1; k< repitition; k++){
                     sb.append(sb.substring(left,right));
                 }
