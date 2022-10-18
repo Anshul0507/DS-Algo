@@ -3,14 +3,18 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<s.length();i++){
+            
+            //push the integer value to stack
             if(s.charAt(i)-'0' >= 0 && s.charAt(i)-'0' <=9){
                 int digit = s.charAt(i)-'0';
-                while(s.charAt(++i)!='['){
-                    digit = digit*10 + s.charAt(i)-'0';
+                while(s.charAt(i+1)!='['){
+                    digit = digit*10 + s.charAt(i+1)-'0';
+                    i++;
                 }
-                i--;
                 st.push(digit);
             }
+            
+            // 
             else if(s.charAt(i)!=']')
                 sb.append(s.charAt(i));
             else{
