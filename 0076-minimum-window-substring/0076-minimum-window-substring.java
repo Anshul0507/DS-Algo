@@ -19,7 +19,8 @@ class Solution {
                 }
                 final char c2 = s.charAt(start);
                 freq[c2-'A']++;
-                if (freq[c2-'A'] > 0) counter++;
+                if (freq[c2-'A'] > 0)
+                    counter++;
                 start++;
             }
         }
