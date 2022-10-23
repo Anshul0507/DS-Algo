@@ -5,7 +5,7 @@ class Solution {
         long sumSqDiff=0;
         for(int i=0;i<n;i++){
             sumDiff += (nums[i] - (i+1));
-            sumSqDiff += (nums[i] * nums[i] - (i+1)*(i+1));
+            sumSqDiff += (nums[i]*nums[i] - (i+1)*(i+1));
         }
         res[0] = (int)(sumSqDiff/sumDiff + sumDiff)/2;
         res[1] = res[0] - sumDiff;
