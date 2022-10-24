@@ -1,29 +1,34 @@
 class Solution {
-    int max = 0;
     public int maxLength(List<String> arr) {
-        backtrack(new StringBuilder(""),0,arr);
-        return max;
-    }
-    
-    private void backtrack(StringBuilder prev, int start, List<String> arr){
-        if(max<prev.length())
-            max = prev.length();
-        for(int i=start; i<arr.size();i++){
-            if(!isUnique(prev.toString(),arr.get(i))) continue;
-            int prevLength = prev.length();
-            backtrack(prev.append(arr.get(i)),i+1,arr);
-            prev.delete(prevLength,prev.length());
+       List<String> res = new ArrayList<>();
+        res.add("");
+        for (String str : arr) {
+            if (!isUnique(str)) continue;
+            List<String> resList = new ArrayList<>();
+            for (String candidate : res) {
+                String temp = candidate + str;
+                if (isUnique(temp)) resList.add(temp);
+            }
+            res.addAll(resList);
         }
+        int ans = 0;
+        for (String str : res) ans = Math.max(ans, str.length());
+        return ans;
     }
     
-    private boolean isUnique(String a, String b){
-        int[] freq = new int[26];
-        for(int i=0;i<a.length();i++)
-            if(++freq[a.charAt(i)-'a']==2)
-                return false;
-        for(int i=0;i<b.length();i++)
-            if(++freq[b.charAt(i)-'a']>=2)
-                return false;
+    private boolean isUnique(String str) {
+        if (str.length() > 26) return false;
+        boolean[] used = new  boolean [26];
+        char[] arr = str.toCharArray();
+        for (char ch : arr) {
+            if (used[ch - 'a']){
+            return false; 
+            }
+            else {
+                used[ch -'a'] = true;
+            }
+        }
         return true;
     }
+
 }
