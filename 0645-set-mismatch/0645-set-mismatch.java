@@ -1,9 +1,8 @@
 class Solution {
     public int[] findErrorNums(int[] nums) {
         int[] res = new int[2];
-        int sumDiff=0, n=nums.length;
-        int sumSqDiff=0;
-        for(int i=0;i<n;i++){
+        int sumDiff=0, sumSqDiff=0;
+        for(int i=0;i<nums.length;i++){
             sumDiff += (nums[i] - (i+1));
             sumSqDiff += (nums[i]*nums[i] - (i+1)*(i+1));
         }
