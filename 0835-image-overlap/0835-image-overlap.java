@@ -18,17 +18,17 @@ class Solution {
             if (B[i/n][i%n] == 1)
                 p2.add(new Point(i/n, i%n));
         }
-        Map<String, Integer> diffMap = new HashMap<String, Integer>();
+        int[][] freq = new int[2*n][2*n];
         int res = 0;
         for (Point a : p1) {
             for (Point b : p2) {
-                String diff = (a.x-b.x)+" "+(a.y-b.y);
-                diffMap.put(diff, diffMap.getOrDefault(diff,0)+1);
+                // String diff = (a.x-b.x)+" "+(a.y-b.y);
+                // diffMap.put(diff, diffMap.getOrDefault(diff,0)+1);
                 // if (diffMap.containsKey(diff))
                 //     diffMap.put(diff, diffMap.get(diff)+1);
                 // else
                 //     diffMap.put(diff, 1);
-                res = Math.max(res, diffMap.get(diff));
+                res = Math.max(res, ++freq[a.x-b.x + n][a.y-b.y + n]);
             }
         }
         return res;
