@@ -1,25 +1,13 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
-        int[] counter = new int[26];
-        int max = 0;
-        int maxCount = 0;
-        for(char task : tasks) {
-            counter[task - 'A']++;
-            if(max == counter[task - 'A']) {
-                maxCount++;
-            }
-            else if(max < counter[task - 'A']) {
-                max = counter[task - 'A'];
-                maxCount = 1;
-            }
+        int[] c = new int[26];
+        for(char t : tasks){
+            c[t - 'A']++;
         }
-        
-        int partCount = max - 1;
-        int partLength = n - (maxCount - 1);
-        int emptySlots = partCount * partLength;
-        int availableTasks = tasks.length - max * maxCount;
-        int idles = Math.max(0, emptySlots - availableTasks);
-        
-        return tasks.length + idles;
+        Arrays.sort(c);
+        int i = 25;
+        while(i >= 0 && c[i] == c[25]) i--;
+
+        return Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
     }
 }
