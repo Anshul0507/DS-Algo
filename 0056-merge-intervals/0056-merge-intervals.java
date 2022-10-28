@@ -1,6 +1,6 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (a,b)->a[0]-b[0]);
+        Arrays.sort(intervals, new SortByFirst());
         List<int[]> res = new ArrayList<>();
         res.add(intervals[0]);
         int currIdx = 0;
@@ -17,9 +17,9 @@ class Solution {
     }
 }
 
-// class SortByFirst implements Comparable<int[]>{
-//     @Override
-//     public int compare(int[] a, int[] b){
-//         return a[0]-b[0];
-//     }
-// }
+class SortByFirst implements Comparator<int[]>{
+    @Override
+    public int compare(int[] a, int[] b){
+        return a[0]-b[0];
+    }
+}
