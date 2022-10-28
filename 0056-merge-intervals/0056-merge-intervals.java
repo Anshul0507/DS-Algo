@@ -16,3 +16,10 @@ class Solution {
         return res.toArray(new int[0][]);
     }
 }
+
+// class SortByFirst implements Comparable<int[]>{
+//     @Override
+//     public int compare(int[] a, int[] b){
+//         return a[0]-b[0];
+//     }
+// }
