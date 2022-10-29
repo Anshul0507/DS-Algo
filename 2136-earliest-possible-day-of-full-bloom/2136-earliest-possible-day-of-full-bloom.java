@@ -16,7 +16,6 @@ class Solution {
         for(Plant p: plants){
             totalPlantTime+=p.plantTime;
             extraGrowthTime = Math.max(extraGrowthTime-p.plantTime, p.growTime);
-            // System.out.println("Total Plant and Growth time - " + totalPlantTime + " " + extraGrowthTime);
         }
         return totalPlantTime + extraGrowthTime;
     }
