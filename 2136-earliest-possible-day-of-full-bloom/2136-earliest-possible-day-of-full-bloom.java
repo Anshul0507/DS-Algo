@@ -8,6 +8,8 @@ class Plant{
 }
 class Solution {
     public int earliestFullBloom(int[] plantTime, int[] growTime) {
+        if(plantTime.length==1)
+            return plantTime[0] + growTime[0];
         Plant[] plants = new Plant[plantTime.length];
         for(int i=0;i<plantTime.length;i++)
             plants[i] = new Plant(plantTime[i],growTime[i]);
