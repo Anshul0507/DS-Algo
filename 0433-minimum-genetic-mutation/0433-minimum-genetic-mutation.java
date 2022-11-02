@@ -1,5 +1,7 @@
 class Solution {
     public int minMutation(String start, String end, String[] bank) {
+        if(start.equals(end))
+            return 0;
         HashSet<String> h = new HashSet<>();
         for(String b : bank)
             h.add(b);
