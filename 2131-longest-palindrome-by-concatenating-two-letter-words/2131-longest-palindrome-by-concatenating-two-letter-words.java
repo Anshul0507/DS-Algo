@@ -12,7 +12,6 @@ class Solution {
                 freq[i][j]++;
             }
         }
-        boolean oddPresent = false;
         for(int i=0;i<26;i++)
             if(freq[i][i]>0)
                 return count + 2;
