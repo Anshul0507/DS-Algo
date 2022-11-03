@@ -1,17 +1,21 @@
 class Solution {
     public int longestPalindrome(String[] words) {
-        int result = 0;
-        int[][] letterArr= new int[26][26];
-        for (int i=0; i<words.length; i++) {
-            int index1 = words[i].charAt(0) - 'a';
-            int index2 = words[i].charAt(1) - 'a';
-            if (letterArr[index2][index1] > 0) {
-                --letterArr[index2][index1];  result += 4;
-            } else ++letterArr[index1][index2];
+        int[][] freq = new int[26][26];
+        int count = 0;
+        for(String w: words){
+            int i = w.charAt(0)-'a', j = w.charAt(1)-'a';
+            if(freq[j][i]>0){
+                count+=4;
+                freq[j][i]--;
+            }
+            else{
+                freq[i][j]++;
+            }
         }
-        for(int i=0; i<26; i++){
-           if(letterArr[i][i]>0) return result + 2;
-        }
-        return result;
+        boolean oddPresent = false;
+        for(int i=0;i<26;i++)
+            if(freq[i][i]>0)
+                return count + 2;
+        return count;
     }
 }
