@@ -17,7 +17,6 @@ class Solution {
     }
     
     private boolean isVowel(char ch){
-        ch = Character.toLowerCase(ch);
-        return ch=='a' || ch=='e' || ch=='i' || ch== 'o' || ch=='u';
+        return ch=='a' || ch=='e' || ch=='i' || ch== 'o' || ch=='u' || ch=='A' || ch=='E' || ch=='I' || ch=='O' || ch=='U';
     }
 }
