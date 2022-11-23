@@ -15,23 +15,22 @@
  */
 
 class Solution {
+    int maxHeight=0,sum=0;
     public int deepestLeavesSum(TreeNode root) {
-        int h = getHeight(root,0);
-        return getSum(root,0,h);
+        dfs(root,0);
+        return sum;
     }
     
-    private int getSum(TreeNode root, int currHeight, int maxHeight){
+    private void dfs(TreeNode root, int currHeight){
         if(root==null)
-            return 0;
-        int currSum=0;
-        if(currHeight==maxHeight-1)
-            currSum=root.val;
-        return currSum + getSum(root.left,currHeight+1,maxHeight) + getSum(root.right,currHeight+1,maxHeight);
-    }
-    
-    private int getHeight(TreeNode root, int h){
-        if(root==null)
-            return h;
-        return Math.max(getHeight(root.left,h+1),getHeight(root.right,h+1));
+            return;
+        if(currHeight>maxHeight){
+            maxHeight=currHeight;
+            sum=0;
+        }
+        if(currHeight==maxHeight)
+            sum+=root.val;
+        dfs(root.left,currHeight+1);
+        dfs(root.right,currHeight+1);
     }
 }
