@@ -14,23 +14,32 @@
  * }
  */
 
+class Pair{
+    int height;
+    int sum;
+    Pair(int h, int s){
+        this.height=h;
+        this.sum=s;
+    }
+}
+
 class Solution {
-    int maxHeight=0,sum=0;
     public int deepestLeavesSum(TreeNode root) {
-        dfs(root,0);
-        return sum;
+        Pair p = new Pair(0,0);
+        dfs(root,0,p);
+        return p.sum;
     }
     
-    private void dfs(TreeNode root, int currHeight){
+    private void dfs(TreeNode root, int currHeight, Pair p){
         if(root==null)
             return;
-        if(currHeight>maxHeight){
-            maxHeight=currHeight;
-            sum=0;
+        if(currHeight>p.height){
+            p.height=currHeight;
+            p.sum=0;
         }
-        if(currHeight==maxHeight)
-            sum+=root.val;
-        dfs(root.left,currHeight+1);
-        dfs(root.right,currHeight+1);
+        if(currHeight==p.height)
+            p.sum+=root.val;
+        dfs(root.left,currHeight+1,p);
+        dfs(root.right,currHeight+1,p);
     }
 }
